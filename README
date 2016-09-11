@@ -1,0 +1,35 @@
+Steps to install and run the server:
+1. Install node.js and npm (https://nodejs.org/en/download/package-manager/)
+2. Install mocha (npm install mocha -g)
+3. From the root of the project, intall all dependent modules by "npm install"
+4. Start the server by "npm start" or "node bin/www" from the root of the project
+5. Access the application from a browser local to the server on port 3000 (http://localhost:3000)
+
+Testing with BDD Chai-Expect:
+- All tests are at tests directory
+- To run all tests, do this at the root directory of the project with this command "mocha tests --recursive --watch"
+
+The application takes a csv file as input which is in the following format (Header line must)
+first name,last name,annual salary,super rate,payment date
+David,Rudd,60050,9%,01 March – 31 March
+Ryan,Chen,120000,10%,01 March – 31 March
+
+**The last column (payment date) can take the following patterns
+01 March – 31 March (One payslip for month of March)
+05 March – 31 March (One payslip for month of March from 5 - 31)
+05 March (One payslip for month of March from 5 - 31)
+01 March (One payslip for month of March from 1 - 31)
+15 March – 03 June (Four payslips for months March to June)
+March (One payslip for month of March from 1 - 31)
+
+Core logic of the app is in services directory:
+- Payslip_data_generator.js takes an array of objects where each object represents one line from the input file given to the app
+- tax_calculator.js takes tax year as input and fetches the corresponding tax structure from data/tax_structure.json file. It also provides an interface to add new tax years. But currently it is not used in the app.
+
+helpers directory has 2 helper files
+- One to read a CSV via stream
+- Second to parse and validate the read data from CSV file
+
+The output file is accessible to the web browser under public directory after making the an AJAX POST to /generatepayslip
+
+data/input.csv is a sample input file for this app

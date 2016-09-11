@@ -1,0 +1,27 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ./partials/head %>
+  </head>
+  <body class="container">
+    <header>
+        <% include ./partials/header %>
+    </header>
+
+    <main>
+      <div id="input" class="jumbotron">
+        <h4> Server Error: <%= message %> </h4>
+      </div>
+    </main>
+
+    <footer>
+        <% include ./partials/footer %>
+    </footer>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/javascripts/clientapp.js"></script>
+  </body>
+</html>

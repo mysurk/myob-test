@@ -32,7 +32,7 @@ ParserValidator.prototype.paymentDate = function(dates, taxYear1, taxYear2) {
     }
     var paymentStartYear, result = {};
     if(dates[0]) {
-        var date1 = dates[0].trim().split(' ');
+        var date1 = dates[0].trim().split(/\s+/);
         var month1 = (date1.length > 1) ? date1[1] : date1[0];
         month1 = month1.toLowerCase();
         if(YEAR1.indexOf(month1) > -1) {
@@ -47,9 +47,13 @@ ParserValidator.prototype.paymentDate = function(dates, taxYear1, taxYear2) {
     } else {
         return {error: 'Incorrect payment start date format'};
     }
+    var noDateForEndDate = false;
     if(dates[1]) {
-        var date2 = dates[1].trim().split(' ');
+        var date2 = dates[1].trim().split(/\s+/);
         var month2 = (date2.length > 1) ? date2[1] : date2[0];
+        if(!date2[1]) {
+            noDateForEndDate = true;
+        }
         month2 = month2.toLowerCase();
         if(YEAR1.indexOf(month2) > -1) {
             if(paymentStartYear === taxYear2) {
@@ -72,7 +76,12 @@ ParserValidator.prototype.paymentDate = function(dates, taxYear1, taxYear2) {
         if(isNaN(timestamp)) {
             return {error: 'Incorrect payment start date format'};
         }
-        result.payment_end_date = new Date(timestamp);
+        if(noDateForEndDate === true) {
+            result.payment_end_date = 
+                moment(new Date(timestamp)).endOf('month').toDate();
+        } else {
+            result.payment_end_date = new Date(timestamp);                
+        }
     } else {
         result.payment_end_date = 
             moment(result.payment_start_date).endOf('month').toDate();

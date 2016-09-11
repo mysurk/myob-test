@@ -30,6 +30,6 @@ helpers directory has 2 helper files
 - One to read a CSV via stream
 - Second to parse and validate the read data from CSV file
 
-The output file is accessible to the web browser under public directory after making the an AJAX POST to /generatepayslip
+The output file is accessible to the web browser under public directory after making an AJAX POST to /generatepayslip
 
 data/input.csv is a sample input file for this app
